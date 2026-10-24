@@ -26,10 +26,11 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Install Android SDK packages
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          cmdline-tools-version: 12266719
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
 
       - name: Build APK
         run: gradle --no-daemon -p FloatingAIPet assembleDebug
@@ -39,3 +40,4 @@ jobs:
         with:
           name: Floating-AI-Pet-APK
           path: FloatingAIPet/app/build/outputs/apk/debug/app-debug.apk
+
